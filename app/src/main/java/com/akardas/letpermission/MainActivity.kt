@@ -10,7 +10,6 @@ import com.akardas.letpermission.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
-    private val REQUEST_CAMERA = 5
     lateinit var binding:ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,14 +36,14 @@ class MainActivity : AppCompatActivity() {
                         //Permission successfully granted!
                         Toast.makeText(this,"Permission granted!",Toast.LENGTH_LONG).show()
                     }
-                    Status.DENIED -> {//Showing Pop up possible
-                        //Permission denied but you still have chance to show permission pop up
+                    Status.DENIED -> {//Showing Pop up is possible
+                        //Permission denied but you still have chance to show permission pop up again
                         Toast.makeText(this,"Permission denied!",Toast.LENGTH_LONG).show()
                         LetPermissionPreferences(this).firstTimeAsking(Manifest.permission.READ_CONTACTS,false)
                         requestPermissionLauncher.launch(Manifest.permission.READ_CONTACTS)
                     }
-                    Status.NOT_ASKED -> {//Showing Pop up possible
-                        //you don't have permission ask for permission
+                    Status.NOT_ASKED -> {//Showing Pop up is possible
+                        //you have not yet requested permission
                         Toast.makeText(this,"no Permission!",Toast.LENGTH_LONG).show()
                         if (LetPermissionPreferences(this).isFirstTimeAsking(Manifest.permission.READ_CONTACTS)){
                             LetPermissionPreferences(this).firstTimeAsking(Manifest.permission.READ_CONTACTS,false)
@@ -52,7 +51,7 @@ class MainActivity : AppCompatActivity() {
                         }
                     }
                     Status.DENIED_WITH_NEVER_ASK -> {
-                        //You cant open permission pop up! navigate user to settings
+                        //You can't open permission pop up from android system! Navigate user to settings to give permission manually
                         Toast.makeText(this,"permission Denied WithNeverAskAgain!",Toast.LENGTH_LONG).show()
                     }
                 }
