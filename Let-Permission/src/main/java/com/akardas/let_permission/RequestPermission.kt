@@ -12,13 +12,6 @@ object RequestPermission {
             ActivityResultContracts.RequestPermission()
         ) { isGranted ->
              result.invoke(isGranted)
-          /*  if (isGranted) {
-                // PERMISSION GRANTED
-                Toast.makeText(this,"Result granted!", Toast.LENGTH_LONG).show()
-            } else {
-                // PERMISSION NOT GRANTED
-                Toast.makeText(this, "Result Denied", Toast.LENGTH_SHORT).show()
-            }*/
         }
         requestPermissionLauncher.launch(permission)
     }
