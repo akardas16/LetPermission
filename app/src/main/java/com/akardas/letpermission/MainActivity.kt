@@ -17,6 +17,7 @@ class MainActivity : AppCompatActivity() {
 
 
         binding.button.setOnClickListener {
+
             LetPermission(this).checkingStatusOf(Manifest.permission.READ_CONTACTS){ permissionStatus ->
                 when(permissionStatus){
                     Status.GRANTED -> {
