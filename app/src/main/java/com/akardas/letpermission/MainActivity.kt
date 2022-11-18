@@ -16,18 +16,6 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-  /*      if (ContextCompat.checkSelfPermission(this,Manifest.permission.READ_CONTACTS)!= PackageManager.PERMISSION_GRANTED) {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_CONTACTS)) {
-                // Show an expanation to the user
-            } else {
-                if (SessionManager(this).isFirstTimeAsking(Manifest.permission.READ_CONTACTS)){
-                    SessionManager(this).firstTimeAsking(Manifest.permission.READ_CONTACTS,false)
-                    ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.READ_CONTACTS), REQUEST_CAMERA)
-                }
-            }
-        } else {
-            //permission granted. do your stuff
-        }*/
 
         binding.permBtn.setOnClickListener {
             LetPermission(this).checkingStatusOf(Manifest.permission.READ_CONTACTS){ permissionStatus ->
