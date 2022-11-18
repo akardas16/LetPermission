@@ -3,7 +3,7 @@
 * All situations handled
 
 ```Kotlin
-  binding.button.setOnClickListener {
+ binding.button.setOnClickListener {
             LetPermission(this).checkingStatusOf(Manifest.permission.READ_CONTACTS){ permissionStatus ->
                 when(permissionStatus){
                     Status.GRANTED -> {
@@ -14,14 +14,20 @@
                         //Permission denied but you still have chance to show permission pop up again
                         Toast.makeText(this,"Permission denied!",Toast.LENGTH_LONG).show()
                         LetPermissionPreferences(this).firstTimeAsking(Manifest.permission.READ_CONTACTS,false)
-                        requestPermissionLauncher.launch(Manifest.permission.READ_CONTACTS)
+                        RequestPermission.withResult(this,Manifest.permission.READ_CONTACTS){ isGranted ->
+                            //You can listen the result from here when user granted o denied permission
+                            Toast.makeText(this,"is granted $isGranted",Toast.LENGTH_LONG).show()
+                        }
                     }
                     Status.NOT_ASKED -> {//Showing Pop up is possible
                         //you have not yet requested permission
                         Toast.makeText(this,"no Permission!",Toast.LENGTH_LONG).show()
                         if (LetPermissionPreferences(this).isFirstTimeAsking(Manifest.permission.READ_CONTACTS)){
                             LetPermissionPreferences(this).firstTimeAsking(Manifest.permission.READ_CONTACTS,false)
-                            requestPermissionLauncher.launch(Manifest.permission.READ_CONTACTS)
+                            RequestPermission.withResult(this,Manifest.permission.READ_CONTACTS){ isGranted ->
+                                //You can listen the result from here when user granted o denied permission
+                                Toast.makeText(this,"is granted $isGranted",Toast.LENGTH_LONG).show()
+                            }
                         }
                     }
                     Status.DENIED_WITH_NEVER_ASK -> {
@@ -34,18 +40,3 @@
         }
 ```
 
-* You can listen the result from here when user granted o denied permission
-
-```Kotlin
-   private val requestPermissionLauncher = registerForActivityResult(
-        ActivityResultContracts.RequestPermission()
-    ) { isGranted ->
-        if (isGranted) {
-            // PERMISSION GRANTED
-            Toast.makeText(this,"Result granted!",Toast.LENGTH_LONG).show()
-        } else {
-            // PERMISSION NOT GRANTED
-            Toast.makeText(this, "Result Denied", Toast.LENGTH_SHORT).show()
-        }
-    }
-```
