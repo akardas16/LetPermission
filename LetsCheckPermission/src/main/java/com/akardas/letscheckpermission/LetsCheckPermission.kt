@@ -3,6 +3,8 @@ package com.akardas.letscheckpermission
 import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Build
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.ChecksSdkIntAtLeast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import java.security.Permissions
@@ -10,6 +12,7 @@ import java.security.Permissions
 
 class LetsCheckPermission(private val context: Context) {
 
+    @ChecksSdkIntAtLeast(api = Build.VERSION_CODES.M)
     private fun shouldAskPermission(): Boolean {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
     }
@@ -39,9 +42,6 @@ class LetsCheckPermission(private val context: Context) {
             permissionCallBack.invoke(Status.GRANTED)
         }
     }
-
-
-
 
 
 }
