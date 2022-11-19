@@ -1,4 +1,4 @@
-package com.akardas.letpermission
+package com.akardas.letscheckpermission
 
 import android.content.Context
 import android.content.pm.PackageManager
@@ -8,7 +8,7 @@ import androidx.core.app.ActivityCompat
 import java.security.Permissions
 
 
-class LetPermission(private val context: Context) {
+class LetsCheckPermission(private val context: Context) {
 
     private fun shouldAskPermission(): Boolean {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
@@ -24,7 +24,7 @@ class LetPermission(private val context: Context) {
         return false
     }
 
-    fun checkingStatusOf(permission: String, permissionCallBack : (permissionStatus:Status) -> Unit) {
+    fun of(permission: String, permissionCallBack : (permissionStatus:Status) -> Unit) {
         if (shouldAskPermission(permission)) {
             if (ActivityCompat.shouldShowRequestPermissionRationale((context as AppCompatActivity), permission)) {
                 permissionCallBack.invoke(Status.DENIED)

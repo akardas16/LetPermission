@@ -1,4 +1,4 @@
-package com.akardas.letpermission
+package com.akardas.letscheckpermission
 
 import android.content.Context
 import android.content.Context.MODE_PRIVATE

@@ -5,6 +5,10 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.akardas.letpermission.databinding.ActivityMainBinding
+import com.akardas.letscheckpermission.LetPermissionPreferences
+import com.akardas.letscheckpermission.LetsCheckPermission
+import com.akardas.letscheckpermission.RequestPermission
+import com.akardas.letscheckpermission.Status
 
 
 class MainActivity : AppCompatActivity() {
@@ -18,7 +22,7 @@ class MainActivity : AppCompatActivity() {
 
         binding.button.setOnClickListener {
 
-            LetPermission(this).checkingStatusOf(Manifest.permission.READ_CONTACTS){ permissionStatus ->
+            LetsCheckPermission(this).of(Manifest.permission.READ_CONTACTS){ permissionStatus ->
                 when(permissionStatus){
                     Status.GRANTED -> {
                         //Permission successfully granted!
