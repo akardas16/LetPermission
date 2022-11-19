@@ -7,8 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 
 object RequestPermission {
 
-    fun withResult(activity: Activity, permission:String, result:(isGranted:Boolean) -> Unit){
-        activity as AppCompatActivity
+    fun withResult(activity: AppCompatActivity, permission:String, result:(isGranted:Boolean) -> Unit){
          val requestPermissionLauncher = activity.registerForActivityResult(
             ActivityResultContracts.RequestPermission()
         ) { isGranted ->

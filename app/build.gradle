@@ -78,8 +78,8 @@ dependencies {
     implementation 'io.github.hariprasanths:bounceview-android:0.2.0'
 
 
-    implementation project(path: ':LetsCheckPermission')
-   // implementation 'com.github.akardas16:LetPermission:1.0'
+    //implementation project(path: ':LetsCheckPermission')
+    implementation 'com.github.akardas16:LetPermission:1.0.0'
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.4'
