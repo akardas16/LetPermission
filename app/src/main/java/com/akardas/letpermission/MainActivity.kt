@@ -68,7 +68,7 @@ class MainActivity : AppCompatActivity() {
             }else if (permissionStatus == Status.DENIED_WITH_NEVER_ASK){
                 cameraLauncher.launch(Manifest.permission.CAMERA)
                 Handler(Looper.getMainLooper()).postDelayed({
-                    if (hasWindowFocus()){ 
+                    if (hasWindowFocus()){
                         //showNavigateSettingDialog = true
                     }
                 },1000)
