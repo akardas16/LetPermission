@@ -4,7 +4,9 @@ plugins {
 }
 
 android {
+    namespace "com.akardas.letscheckpermission"
     compileSdk 32
+
 
     defaultConfig {
         minSdk 21

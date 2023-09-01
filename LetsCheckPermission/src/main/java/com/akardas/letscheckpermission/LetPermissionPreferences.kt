@@ -28,7 +28,7 @@ class LetPermissionPreferences(context: Context) {
 
     private fun doCommit() {
         if (editor != null) {
-            editor!!.commit()
+            editor?.commit()
             editor = null
         }
     }
