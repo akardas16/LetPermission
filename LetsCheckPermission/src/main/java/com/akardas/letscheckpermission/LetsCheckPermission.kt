@@ -2,11 +2,11 @@ package com.akardas.letscheckpermission
 
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.provider.Settings
-import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.ChecksSdkIntAtLeast
@@ -125,4 +125,36 @@ fun Context.openAppSystemSettings() = startActivity(Intent(Settings.ACTION_APPLI
 
 enum class Status{
     INITIAL,GRANTED_ALREADY,DENIED_WITH_RATIONALE,NOT_ASKED,DENIED_WITH_NEVER_ASK
+}
+
+class LetPermissionPreferences(context: Context) {
+    private val sharedPreferences: SharedPreferences
+    private var editor: SharedPreferences.Editor? = null
+    private val MY_PREF = "permissions_Settings"
+    fun firstTimeAsking(permission: String?, isFirstTime: Boolean) {
+        doEdit()
+        editor!!.putBoolean(permission, isFirstTime)
+        doCommit()
+    }
+
+    fun isFirstTimeAsking(permission: String?): Boolean {
+        return sharedPreferences.getBoolean(permission, true)
+    }
+
+    private fun doEdit() {
+        if (editor == null) {
+            editor = sharedPreferences.edit()
+        }
+    }
+
+    private fun doCommit() {
+        if (editor != null) {
+            editor?.commit()
+            editor = null
+        }
+    }
+
+    init {
+        sharedPreferences = context.getSharedPreferences(MY_PREF, Context.MODE_PRIVATE)
+    }
 }
