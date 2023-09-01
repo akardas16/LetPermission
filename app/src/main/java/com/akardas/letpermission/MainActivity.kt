@@ -5,6 +5,8 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.provider.Settings
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
@@ -18,13 +20,15 @@ import com.akardas.letscheckpermission.Status
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding:ActivityMainBinding
+    private var permissionStatus = Status.INITIAL
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
          val cameraLauncher = LetsCheckPermission(this)
-           .of(Manifest.permission.READ_CONTACTS){status ->
+           .of(Manifest.permission.CAMERA){status ->
+               permissionStatus = status
                binding.permissionStatus.text = status.name
                when(status){
                    Status.GRANTED_ALREADY -> {
@@ -48,13 +52,28 @@ class MainActivity : AppCompatActivity() {
 
                        //openAppSystemSettings()
                    }
+
+                   else -> {}
                }
         }
 
 
 
         binding.button.setOnClickListener {
-            cameraLauncher.launch(Manifest.permission.READ_CONTACTS)
+            if (permissionStatus == Status.GRANTED_ALREADY){
+                //READ_CONTACTS
+
+            }else if ((permissionStatus == Status.NOT_ASKED) or (permissionStatus == Status.DENIED_WITH_RATIONALE)){
+                //show request dialog
+            }else if (permissionStatus == Status.DENIED_WITH_NEVER_ASK){
+                cameraLauncher.launch(Manifest.permission.CAMERA)
+                Handler(Looper.getMainLooper()).postDelayed({
+                    if (hasWindowFocus()){ 
+                        //showNavigateSettingDialog = true
+                    }
+                },1000)
+
+            }
         }
 
 

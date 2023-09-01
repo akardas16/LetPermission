@@ -124,5 +124,5 @@ class LetsCheckPermission(private val activity: AppCompatActivity) {
 fun Context.openAppSystemSettings() = startActivity(Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.fromParts("package", packageName, null)))
 
 enum class Status{
-    GRANTED_ALREADY,DENIED_WITH_RATIONALE,NOT_ASKED,DENIED_WITH_NEVER_ASK
+    INITIAL,GRANTED_ALREADY,DENIED_WITH_RATIONALE,NOT_ASKED,DENIED_WITH_NEVER_ASK
 }
